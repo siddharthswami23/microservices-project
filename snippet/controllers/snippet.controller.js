@@ -38,4 +38,17 @@ const getAllSnippets = async (req, res) => {
     }
 };
 
-module.exports = { CreateSnippet,getAllSnippets }
+const getSnippetById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const snippet = await Snippet.findById(id);
+        if (!snippet) {
+            return res.status(404).json({ message: "Snippet not found" });
+        }
+        res.status(200).json(snippet);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching snippet", error: error.message });
+    }
+};
+
+module.exports = { CreateSnippet,getAllSnippets,getSnippetById }

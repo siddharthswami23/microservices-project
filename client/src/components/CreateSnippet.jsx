@@ -6,6 +6,7 @@ const CreateSnippet = () => {
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
   const [snippets, setSnippets] = useState([]);
+  const [commentsData, setCommentsData] = useState([]);
 
   const createSnippet = async (e) => {
     e.preventDefault();
@@ -19,7 +20,10 @@ const CreateSnippet = () => {
       alert(res.data.message);
       setTitle("");
       setCode("");
-      setSnippets((prevSnippets) => [...prevSnippets, res.data.snippet]);
+      setSnippets((prev) => [...prev, res.data.snippet]);
+
+      // Fetch comments for the new snippet
+      fetchComments(res.data.snippet._id);
     } catch (error) {
       console.log("error occurred", error);
     }
@@ -30,12 +34,16 @@ const CreateSnippet = () => {
       try {
         const res = await axios.get("http://localhost:5000/api/snippet/getAll");
         setSnippets(res.data);
+
       } catch (error) {
         console.log("error while fetching snippet", error);
       }
     };
+
     fetchSnippets();
   }, []);
+
+  
 
   return (
     <div className="mt-10">
@@ -59,13 +67,32 @@ const CreateSnippet = () => {
       </form>
 
       <div className="mt-5 grid md:grid-cols-3 gap-2">
-        {snippets.map((snippet, index) => (
-          <div key={index} className="p-3 border rounded">
-            <h1 className="font-bold text-xl">{snippet.title}</h1>
-            <pre className="whitespace-pre-wrap mt-2 text-sm bg-gray-100 p-2 rounded">{snippet.code}</pre>
-            <CreateComment snippet={snippet} />
-          </div>
-        ))}
+        {snippets.map((snippet) => {
+
+          return (
+            <div key={snippet._id} className="p-3 border rounded">
+              <h1 className="font-bold text-xl">{snippet.title}</h1>
+              <pre className="whitespace-pre-wrap mt-2 text-sm bg-gray-100 p-2 rounded">
+                {snippet.code}
+              </pre>
+{/* 
+              <div className="mt-2">
+                <h2 className="font-semibold">Comments:</h2>
+                {commentData?.comments?.length > 0 ? (
+                  commentData.comments.map((comment, idx) => (
+                    <p key={idx} className="ml-2 text-sm text-gray-700">- {comment.text}</p>
+                  ))
+                ) : (
+                  <p className="italic text-sm text-gray-400 ml-2">
+                    {commentData?.message || "Loading comments..."}
+                  </p>
+                )}
+              </div> */}
+
+              <CreateComment snippet={snippet} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

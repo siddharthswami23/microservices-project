@@ -1,8 +1,9 @@
 const express = require('express')
-const { CreateSnippet, getAllSnippets } = require('../controllers/snippet.controller')
-const SnipperRouter = express.Router()
+const { CreateSnippet, getAllSnippets, getSnippetById } = require('../controllers/snippet.controller')
+const SnippetRouter = express.Router()
 
-SnipperRouter.post('/create', CreateSnippet)
-SnipperRouter.get('/getAll', getAllSnippets)
+SnippetRouter.post('/create', CreateSnippet)
+SnippetRouter.get('/getAll', getAllSnippets)
+SnippetRouter.get('/get/:id', getSnippetById)
 
-module.exports = SnipperRouter
+module.exports = SnippetRouter

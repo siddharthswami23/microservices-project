@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const dotenv = require('dotenv');
 const ConnectDB = require('./config/db');
+const CommentRouter = require('./routes/comments.routes');
 
 const PORT = 3000;
 
@@ -17,7 +18,7 @@ app.get('/', (req, res) => {
     res.send('hello world')
 })
 
-
+app.use('/api/comment', CommentRouter)
 
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
