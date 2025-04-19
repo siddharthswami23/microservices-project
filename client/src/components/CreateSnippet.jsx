@@ -3,6 +3,7 @@ import axios from "axios";
 import CreateComment from "./CreateComment";
 
 const CreateSnippet = () => {
+  const SNIPPET_URL = import.meta.env.SNIPPET_URL;
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
   const [snippets, setSnippets] = useState([]);
@@ -11,7 +12,7 @@ const CreateSnippet = () => {
   const createSnippet = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/snippet/create", {
+      const res = await axios.post(`${SNIPPET_URL}/api/snippet/create`, {
         title,
         code,
         comments: [],
@@ -31,7 +32,7 @@ const CreateSnippet = () => {
   useEffect(() => {
     const fetchSnippets = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/snippet/getAll");
+        const res = await axios.get(`${SNIPPET_URL}/api/snippet/getAll`);
         setSnippets(res.data);
 
       } catch (error) {

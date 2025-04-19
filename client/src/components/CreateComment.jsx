@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const CreateComment = ({ snippet }) => {
+  const COMMENT_URL = import.meta.env.COMMENT_URL;
   const [text, setText] = useState("");
   const [comments, setComments] = useState(snippet.comments || []);
 
@@ -9,7 +10,7 @@ const CreateComment = ({ snippet }) => {
     const fetchComments = async (snippetId) => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/comment/get/${snippetId}`
+          `${COMMENT_URL}/api/comment/get/${snippetId}`
         );
         setComments((prevData) => [...prevData, ...response.data.comments]);
       } catch (error) {
@@ -30,7 +31,7 @@ const CreateComment = ({ snippet }) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`http://localhost:3000/api/comment/add`, {
+      const res = await axios.post(`${COMMENT_URL}/api/comment/add`, {
         text,
         snippetId: snippet._id,
       });
