@@ -3,6 +3,6 @@ const { CreateSnippet, getAllSnippets } = require('../controllers/snippet.contro
 const SnipperRouter = express.Router()
 
 SnipperRouter.post('/create', CreateSnippet)
-SnipperRouter.post('/getAll', getAllSnippets)
+SnipperRouter.get('/getAll', getAllSnippets)
 
 module.exports = SnipperRouter

@@ -4,23 +4,29 @@ const CreateSnippet = async (req, res) => {
     const { title, code, comments, createdAt } = req.body;
 
     try {
-        const newSnippet = Snippet.create({
+        const newSnippet = await Snippet.create({
             title,
             code,
             comments,
             createdAt
-        })
-        await newSnippet.save()
+        });
+
         res.status(201).json({
             success: true,
             message: "Snippet created successfully",
             snippet: newSnippet
-        })
+        });
 
     } catch (error) {
         console.log(error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to create snippet",
+            error
+        });
     }
 }
+
 
 const getAllSnippets = async (req, res) => {
     try {
