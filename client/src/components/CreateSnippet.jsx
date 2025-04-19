@@ -22,7 +22,6 @@ const CreateSnippet = () => {
       setCode("");
       setSnippets((prev) => [...prev, res.data.snippet]);
 
-      // Fetch comments for the new snippet
       fetchComments(res.data.snippet._id);
     } catch (error) {
       console.log("error occurred", error);
@@ -75,20 +74,6 @@ const CreateSnippet = () => {
               <pre className="whitespace-pre-wrap mt-2 text-sm bg-gray-100 p-2 rounded">
                 {snippet.code}
               </pre>
-{/* 
-              <div className="mt-2">
-                <h2 className="font-semibold">Comments:</h2>
-                {commentData?.comments?.length > 0 ? (
-                  commentData.comments.map((comment, idx) => (
-                    <p key={idx} className="ml-2 text-sm text-gray-700">- {comment.text}</p>
-                  ))
-                ) : (
-                  <p className="italic text-sm text-gray-400 ml-2">
-                    {commentData?.message || "Loading comments..."}
-                  </p>
-                )}
-              </div> */}
-
               <CreateComment snippet={snippet} />
             </div>
           );
