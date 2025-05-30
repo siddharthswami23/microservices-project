@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const CreateComment = ({ snippet }) => {
-  const COMMENT_URL = import.meta.env.COMMENT_URL;
+  const COMMENT_URL = import.meta.env.VITE_COMMENT_URL;
   const [text, setText] = useState("");
   const [comments, setComments] = useState(snippet.comments || []);
 

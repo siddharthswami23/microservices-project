@@ -3,7 +3,8 @@ import axios from "axios";
 import CreateComment from "./CreateComment";
 
 const CreateSnippet = () => {
-  const SNIPPET_URL = import.meta.env.SNIPPET_URL;
+  const SNIPPET_URL = import.meta.env.VITE_SNIPPET_URL;
+  // console.log(SNIPPET_URL);
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
   const [snippets, setSnippets] = useState([]);
@@ -34,7 +35,6 @@ const CreateSnippet = () => {
       try {
         const res = await axios.get(`${SNIPPET_URL}/api/snippet/getAll`);
         setSnippets(res.data);
-
       } catch (error) {
         console.log("error while fetching snippet", error);
       }
@@ -42,8 +42,6 @@ const CreateSnippet = () => {
 
     fetchSnippets();
   }, []);
-
-  
 
   return (
     <div className="mt-10">
@@ -67,18 +65,18 @@ const CreateSnippet = () => {
       </form>
 
       <div className="mt-5 grid md:grid-cols-3 gap-2">
-        {snippets.map((snippet) => {
-
-          return (
-            <div key={snippet._id} className="p-3 border rounded">
-              <h1 className="font-bold text-xl">{snippet.title}</h1>
-              <pre className="whitespace-pre-wrap mt-2 text-sm bg-gray-100 p-2 rounded">
-                {snippet.code}
-              </pre>
-              <CreateComment snippet={snippet} />
-            </div>
-          );
-        })}
+        {Array.isArray(snippets) &&
+          snippets.map((snippet) => {
+            return (
+              <div key={snippet._id} className="p-3 border rounded">
+                <h1 className="font-bold text-xl">{snippet.title}</h1>
+                <pre className="whitespace-pre-wrap mt-2 text-sm bg-gray-100 p-2 rounded">
+                  {snippet.code}
+                </pre>
+                <CreateComment snippet={snippet} />
+              </div>
+            );
+          })}
       </div>
     </div>
   );
