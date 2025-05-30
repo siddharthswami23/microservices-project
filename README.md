@@ -1,8 +1,8 @@
 # Code Snippets App (MERN Microservices)
 
-## Live Demo
+<!-- ## Live Demo
 
-[Live Demo Link](https://code-snippets-app-demo.vercel.app/) *(replace with actual link if deployed)*
+[Live Demo Link](https://code-snippets-app-demo.vercel.app/) *(replace with actual link if deployed)* -->
 
 ## Tech Stacks Used
 
